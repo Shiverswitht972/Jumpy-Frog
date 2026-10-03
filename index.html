@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#5bbf45">
+<title>Jumpy Frog</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">SCORE: <span id="score">0</span></div>
+  <button id="mute" aria-label="Sound">🔊</button>
+
+  <section id="menu" class="screen">
+    <h1>JUMPY<br>FROG</h1>
+    <button id="btn-play" class="btn">PLAY</button>
+    <button id="btn-lb" class="btn alt">LEADERBOARD</button>
+    <p class="hint">Swipe left or right to move<br>Swipe up or tap to jump</p>
+  </section>
+
+  <section id="over" class="screen hidden">
+    <h2>GAME OVER</h2>
+    <div class="big">SCORE: <span id="o-score">0</span></div>
+    <div class="best">BEST: <span id="o-best">0</span></div>
+    <div id="newbest" class="newbest hidden">NEW BEST!</div>
+    <button id="btn-again" class="btn">PLAY AGAIN</button>
+    <button id="btn-lb2" class="link">LEADERBOARD</button>
+  </section>
+
+  <section id="lb" class="screen hidden">
+    <h2>LEADERBOARD</h2>
+    <div class="tabs">
+      <button data-p="daily" class="on">DAILY</button>
+      <button data-p="weekly">WEEKLY</button>
+      <button data-p="alltime">ALL TIME</button>
+    </div>
+    <ul id="lb-list"></ul>
+    <label class="namebox">Your name <input id="name" maxlength="10" autocomplete="off"></label>
+    <button id="btn-back" class="btn alt">BACK</button>
+  </section>
+</div>
+
+<script src="config.js"></script>
+<script src="audio.js"></script>
+<script src="leaderboard.js"></script>
+<script src="game.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
