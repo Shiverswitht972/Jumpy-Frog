@@ -70,11 +70,11 @@
     pid = e.pointerId; sx = e.clientX; sy = e.clientY; st = performance.now(); acted = false;
   });
   app.addEventListener('pointermove', e => {
-    if (e.pointerId !== pid || mode !== 'play') return;
+    if (e.pointerId !== pid || mode !== 'play' || acted) return;   // one action per swipe
     const dx = e.clientX - sx, dy = e.clientY - sy;
     if (Math.abs(dx) > Math.abs(dy)) {
-      if (Math.abs(dx) >= C.swipeMin) { move(dx > 0 ? 1 : -1); sx = e.clientX; sy = e.clientY; acted = true; }
-    } else if (-dy >= C.swipeMin) { jump(); sx = e.clientX; sy = e.clientY; acted = true; }
+      if (Math.abs(dx) >= C.swipeMin) { move(dx > 0 ? 1 : -1); acted = true; }
+    } else if (-dy >= C.swipeMin) { jump(); acted = true; }
   });
   const end = e => {
     if (e.pointerId !== pid) return;
