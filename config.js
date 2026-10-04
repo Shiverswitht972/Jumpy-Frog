@@ -10,7 +10,7 @@ JF.CONFIG = {
   pxPerMeter: 40,
   jumpTime: 0.5,          // seconds in the air
   laneLerp: 24,           // higher = snappier lane changes
-  swipeMin: 20,           // pixels of finger travel to count as a swipe
+  swipeMin: 26,           // pixels of finger travel to count as a swipe (one lane per swipe)
   coinBonus: 10,
   leaderboardSize: 10,
 
