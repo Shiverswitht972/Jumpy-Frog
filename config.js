@@ -18,5 +18,5 @@ JF.CONFIG = {
 
   // ARTWORK: put an image path here to replace the drawn placeholder.
   // Example: frog: 'art/frog.png'  (transparent PNG, facing up, about 88x96)
-  ART: { frog: null, car: null, log: null, rock: null, coin: null }
+  ART: { frog: 'frog.png', car: null, log: null, rock: null, coin: null }
 };
