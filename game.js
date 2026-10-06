@@ -20,7 +20,10 @@
   Object.keys(C.ART).forEach(k => { if (C.ART[k]) { art[k] = new Image(); art[k].src = C.ART[k]; } });
   function sprite(k, w, h) {
     const im = art[k];
-    if (im && im.complete && im.naturalWidth) { ctx.drawImage(im, -w / 2, -h / 2, w, h); return true; }
+    if (im && im.complete && im.naturalWidth) {            // fit inside w x h, keep the image shape
+      const r = Math.min(w / im.naturalWidth, h / im.naturalHeight), dw = im.naturalWidth * r, dh = im.naturalHeight * r;
+      ctx.drawImage(im, -dw / 2, -dh / 2, dw, dh); return true;
+    }
     return false;
   }
 
@@ -240,7 +243,7 @@
     const lift = jp > 0 ? Math.sin(jp * Math.PI) : 0, s = 1 + 0.4 * lift;
     ctx.fillStyle = 'rgba(0,0,0,.25)'; oval(x + lift * 8, y + 14 + lift * 10, 16 * (1 - 0.2 * lift), 8 * (1 - 0.2 * lift));
     ctx.save(); ctx.translate(x, y - lift * 20); ctx.rotate(lean * 0.35); ctx.scale(s, s);
-    if (!sprite('frog', 44, 48)) {
+    if (!sprite('frog', 56, 56)) {
       ctx.fillStyle = '#3fae4f';
       oval(-17, 11, 8, 11 + 8 * lift, 0.35); oval(17, 11, 8, 11 + 8 * lift, -0.35);
       oval(-15, -8, 6, 8, -0.4); oval(15, -8, 6, 8, 0.4);
