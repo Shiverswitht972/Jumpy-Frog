@@ -33,8 +33,10 @@
     const my = ++token, list = $('lb-list');
     list.innerHTML = '<li class="empty">Loading...</li>';
     let rows = [];
-    try { rows = await JF.Leaderboard.getTop(period); } catch (e) {}
+    let failed = false;
+    try { rows = await JF.Leaderboard.getTop(period); } catch (e) { failed = true; }
     if (my !== token) return;
+    if (failed) { list.innerHTML = '<li class="empty">Leaderboard offline. Try again soon.</li>'; return; }
     list.innerHTML = rows.length
       ? rows.map((r, i) => `<li class="${r.you ? 'you' : ''}"><span class="rk">${i + 1}</span><span class="nm">${esc(r.name)}</span><span>${r.score}</span></li>`).join('')
       : '<li class="empty">No scores yet</li>';
@@ -42,7 +44,7 @@
 
   const nameEl = $('name');
   nameEl.value = JF.Leaderboard.getName();
-  nameEl.onchange = () => { JF.Leaderboard.setName(nameEl.value); nameEl.value = JF.Leaderboard.getName(); renderLB(); };
+  nameEl.onchange = () => { JF.Leaderboard.setName(nameEl.value); nameEl.value = JF.Leaderboard.getName(); JF.Leaderboard.syncName(); renderLB(); };
 
   JF.Game.onScore = s => { $('score').textContent = s; };
   JF.Game.onGameOver = s => {
@@ -61,4 +63,10 @@
 
   document.addEventListener('pointerdown', JF.Audio.init);   // unlock audio on first touch
   show('menu');
+
+  // Inside Discord only: load the Discord pieces. In a normal browser nothing changes.
+  if (location.search.indexOf('frame_id=') > -1) {
+    const load = (src, cb) => { const s = document.createElement('script'); s.src = src; s.onload = cb; document.head.appendChild(s); };
+    load('discord-sdk.js', () => load('discord.js'));
+  }
 })();
